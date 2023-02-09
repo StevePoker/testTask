@@ -146,3 +146,5 @@ if __name__ == '__main__':
     parser = GamesParser(url=url, menu_endpoints=endpoints, items=items_list)
 
     games_data = parser.parse_games_data()
+    for game in games_data:
+        print(game)
