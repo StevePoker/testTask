@@ -9,7 +9,7 @@ class GamesParser:
         self.menu_endpoints = menu_endpoints
         self.items = items
 
-    def parse_games_data(self):
+    def parse_games_data_generator(self):
 
         for link in self._get_links_upcoming_games_by_item():
             page = requests.get(url=link)
@@ -52,7 +52,7 @@ class GamesParser:
 
             game_description = soup_game.find('div', attrs={'id': 'game-description-cnt'}).find('p').text
 
-            game_screenshots = str(soup_game.select('body > main > section > article > header > div.S016-guz-mid-c > div > a:nth-child(2)'))
+            game_screenshots = str(soup_game.select('body > main > section > article > header > div.S016-guz-mid-c > div > a:nth-child(4)'))
             try:
                 game_screenshots = re.search(r'href=\"(.*?)\">Images', game_screenshots).group(1)
             except AttributeError:
@@ -145,6 +145,6 @@ if __name__ == '__main__':
     ]
     parser = GamesParser(url=url, menu_endpoints=endpoints, items=items_list)
 
-    games_data = parser.parse_games_data()
+    games_data = parser.parse_games_data_generator()
     for game in games_data:
         print(game)
