@@ -52,15 +52,15 @@ class GamesParser:
 
             game_description = soup_game.find('div', attrs={'id': 'game-description-cnt'}).find('p').text
 
-            game_screenshots = str(soup_game.find('div', class_='S016-mobi-p4 S016-game-guz1'))
+            game_screenshots = str(soup_game.select('body > main > section > article > header > div.S016-guz-mid-c > div > a:nth-child(2)'))
             try:
-                game_screenshots = re.search(r'href=(.*?)>Images', game_screenshots).group(1)
+                game_screenshots = re.search(r'href=\"(.*?)\">Images', game_screenshots).group(1)
             except AttributeError:
                 game_screenshots = ''
 
-            game_trailer = str(soup_game.find('div', class_='S016-mobi-p4 S016-game-guz1'))
+            game_trailer = str(soup_game.select('body > main > section > article > header > div.S016-guz-mid-c > div > a:nth-child(3)'))
             try:
-                game_trailer = re.search(r'href=(.*?)>Video', game_trailer).group(1)
+                game_trailer = re.search(r'href=\"(.*?)\">Video', str(game_trailer)).group(1)
             except AttributeError:
                 game_trailer = ''
 
